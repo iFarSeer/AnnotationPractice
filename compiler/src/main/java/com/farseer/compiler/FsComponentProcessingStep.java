@@ -16,7 +16,8 @@
 
 package com.farseer.compiler;
 
-import com.farseer.FsBind;
+import com.farseer.FsComponent;
+import com.farseer.FsMethod;
 import com.google.auto.common.BasicAnnotationProcessor;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.SetMultimap;
@@ -33,31 +34,31 @@ import java.util.Set;
  * @version 1.0.0
  * @since 16/6/5
  */
-public class FsBindProcessingStep implements BasicAnnotationProcessor.ProcessingStep {
+public class FsComponentProcessingStep implements BasicAnnotationProcessor.ProcessingStep {
 
     private final Messager messager;
-    private final FsBindValidator fsBindValidator;
-    private final FsBindGenerator fsBindGenerator;
+    private final FsComponentValidator fsComponentValidator;
+    private final FsComponentGenerator fsComponentGenerator;
 
-    public FsBindProcessingStep(Messager messager, FsBindValidator fsBindValidator, FsBindGenerator fsBindGenerator) {
+    public FsComponentProcessingStep(Messager messager, FsComponentValidator fsBindValidator, FsComponentGenerator fsBindGenerator) {
         this.messager = messager;
-        this.fsBindValidator = fsBindValidator;
-        this.fsBindGenerator = fsBindGenerator;
+        this.fsComponentValidator = fsBindValidator;
+        this.fsComponentGenerator = fsBindGenerator;
     }
 
     @Override
     public Set<? extends Class<? extends Annotation>> annotations() {
-        return ImmutableSet.<Class<? extends Annotation>>of(FsBind.class);
+        return ImmutableSet.<Class<? extends Annotation>>of(FsComponent.class);
     }
 
     @Override
     public Set<Element> process(SetMultimap<Class<? extends Annotation>, Element> elementsByAnnotation) {
-        for (Element element : elementsByAnnotation.get(FsBind.class)) {
-            ValidationReport<Element> validationReport = fsBindValidator.validate(element);
+        for (Element element : elementsByAnnotation.get(FsComponent.class)) {
+            ValidationReport<Element> validationReport = fsComponentValidator.validate(element);
             validationReport.printMessagesTo(messager);
 
             if (validationReport.isClean()) {
-                fsBindGenerator.write(element);
+                fsComponentGenerator.write(element);
 
             }
         }

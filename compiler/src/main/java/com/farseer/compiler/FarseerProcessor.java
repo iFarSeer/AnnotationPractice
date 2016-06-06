@@ -44,11 +44,11 @@ public class FarseerProcessor extends BasicAnnotationProcessor {
     @Override
     protected Iterable<? extends ProcessingStep> initSteps() {
         Messager messager = processingEnv.getMessager();
-        FsBindValidator fsBindValidator = new FsBindValidator();
-        FsBindGenerator fsBindGenerator = new FsBindGenerator(processingEnv);
+        FsComponentValidator fsBindValidator = new FsComponentValidator();
+        FsComponentGenerator fsBindGenerator = new FsComponentGenerator(processingEnv);
 
         return ImmutableList.of(
-                new FsBindProcessingStep(messager, fsBindValidator, fsBindGenerator)
+                new FsComponentProcessingStep(messager, fsBindValidator, fsBindGenerator)
         );
     }
 }

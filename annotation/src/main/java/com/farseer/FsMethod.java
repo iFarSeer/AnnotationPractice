@@ -14,14 +14,13 @@
  *    limitations under the License.
  */
 
-package com.farseer.compiler;
+package com.farseer;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
-import java.util.List;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import static javax.lang.model.util.ElementFilter.methodsIn;
 /**
  * class description
  *
@@ -29,11 +28,8 @@ import static javax.lang.model.util.ElementFilter.methodsIn;
  * @version 1.0.0
  * @since 16/6/5
  */
-public final class FsBindValidator {
-    ValidationReport<Element> validate(Element element) {
-        ValidationReport.Builder<Element> builder = ValidationReport.about(element);
-        List<ExecutableElement> members = methodsIn(((TypeElement) element).getEnclosedElements());
-        // TODO
-        return builder.build();
-    }
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.SOURCE)
+public @interface FsMethod {
+
 }

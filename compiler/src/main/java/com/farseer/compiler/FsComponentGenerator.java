@@ -16,7 +16,7 @@
 
 package com.farseer.compiler;
 
-import com.farseer.FsBind;
+import com.farseer.FsComponent;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -37,20 +37,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * @version 1.0.0
  * @since 16/6/5
  */
-public class FsBindGenerator {
+public class FsComponentGenerator {
     private final ProcessingEnvironment processingEnv;
 
-    public FsBindGenerator(ProcessingEnvironment processingEnv) {
+    public FsComponentGenerator(ProcessingEnvironment processingEnv) {
         this.processingEnv = processingEnv;
     }
 
     public void write(Element element){
 
-        FsBind fsBind = element.getAnnotation(FsBind.class);
+        FsComponent fsBind = element.getAnnotation(FsComponent.class);
         checkNotNull(fsBind.packageName());
-        checkNotNull(fsBind.className());
         String packageName = fsBind.packageName();
-        String className = fsBind.className();
+        String className =  "Farseer_"+element.getSimpleName().toString();;
 
         if (element.getKind() != ElementKind.CLASS) {
             processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "only support class");

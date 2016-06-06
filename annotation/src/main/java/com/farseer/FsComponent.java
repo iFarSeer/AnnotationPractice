@@ -30,7 +30,6 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.CLASS)
-public @interface FsBind {
+public @interface FsComponent {
     String packageName() default "com.farseer.test";
-    String className() default "Test";
 }
